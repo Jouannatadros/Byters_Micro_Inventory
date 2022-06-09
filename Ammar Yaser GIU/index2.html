@@ -40,8 +40,25 @@
                       success: function (data) {
                         $.each(data, function (i, item) {  
                           if(item.productName.toLowerCase() == search.toLowerCase()|| item.description.toLowerCase() == search.toLowerCase()   || search == ''){
-                            prodCount += 1;
+                            if(item.quantitiy=='0'){
+                              item.description+='(OUT OF STOCK)'
+                             prodCount += 1;
                             var rows = 
+                                            '<div class="product">'
+                                                +'<img src="'+item.image+'" alt="">'
+                                                +'<div class="prod_det">'
+                                                    +'<span class="prod_name">'+item.productName+'</span>'
+                                                    +'<span class="prod_dets">'+item.description+'</span>'
+                                                    +'<span class="prod_price"> $'+item.price+'</span>'    
+                                                    
+                                                +'</div>'
+                                            +'</div>';
+                                    $('#products_container').append(rows);   
+
+                            }
+                            else{
+                            prodCount += 1;
+                             rows = 
                                             '<div class="product">'
                                                 +'<img src="'+item.image+'" alt="">'
                                                 +'<div class="prod_det">'
@@ -51,7 +68,7 @@
                                                     +'<a href="order.html?prodname='+item.productName+'&prodId='+item.id+'&prodprice='+item.price+'&prodImg='+item.image+'" class="buy">🛒 Buy Now</a>'
                                                 +'</div>'
                                             +'</div>';
-                                    $('#products_container').append(rows); 
+                                    $('#products_container').append(rows); }
                           }
                         });  
                         if(prodCount == 0){
