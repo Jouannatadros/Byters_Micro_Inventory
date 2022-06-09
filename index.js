@@ -4,6 +4,7 @@ const axios = require('axios');
 const bodyParser = require('body-parser')
 const query  = require('./queries');
 const req = require('express/lib/request');
+var mongoClient = require('mongodb').MongoClient;
 
 const app = express();
 
@@ -35,13 +36,8 @@ app.use(function (req, res, next) {
 
 app.get('/products', query.getproducts);
 
-// app.post('/checkout', query.create_chekout_session);
+app.get("/products/:_id",query.getprodid);
 
-app.post('/addOrder', query.addOrder);
-
-//app.post('/error:id', query.cancelOrder);
-
-//app.post('/success:id', query.fulfilOrder);
 
 
 app.listen(3000, () => {
