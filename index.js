@@ -4,11 +4,22 @@ const axios = require('axios');
 const bodyParser = require('body-parser')
 const query  = require('./queries');
 const req = require('express/lib/request');
+const cors = require("cors");
+const { MongoClient } = require('mongodb');
 var mongoClient = require('mongodb').MongoClient;
+
+//const client = new MongoClient(process.env.MONGO_CONNECTION);
+//client.connect().then(()=> console.log("connected to db"));
 
 const app = express();
 
+//app.use(cors())
 app.use(express.json());
+// app.use(
+//   express.urlencoded({
+//     extended:true,
+//   })
+// )
 
 app.use(bodyParser.json())
 
@@ -17,7 +28,6 @@ app.use(
     extended: true,
   })
 )
-
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
@@ -33,12 +43,11 @@ app.use(function (req, res, next) {
   next(); 
 });
 
-
 app.get('/products', query.getproducts);
 
 app.get("/products/:_id",query.getprodid);
 
-
+app.get("/search/:productName",query.search);
 
 app.listen(3000, () => {
   console.log(`App running on port 3000.`)
