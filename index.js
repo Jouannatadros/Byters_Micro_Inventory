@@ -12,7 +12,7 @@ var mongoClient = require('mongodb').MongoClient;
 //client.connect().then(()=> console.log("connected to db"));
 
 const app = express();
-
+app.use(cors());
 //app.use(cors())
 app.use(express.json());
 // app.use(
